@@ -1,0 +1,35 @@
+{% extends "data_core/_layout.html" %}
+
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ image.pid.name }}</h2>
+    <hr>
+    <div>
+        <a href={% url "data_core:product_detail" image.pid.id %} class="btn btn-primary">Product</a>
+        {% if image.valid %}
+        <button type="button" class="btn btn-success">Valid</button>
+        {% else %}
+        <button type="button" class="btn btn-danger">Invalid</button>
+        {% endif %}
+        <button type="button" class="btn btn-secondary">{{ image.height }} x {{ image.width }}</button>
+        <a href={% url "data_core:product_image-detail" pk=image.id %} class="btn btn-dark">DRF</a>
+        
+    </div>
+
+    <div class="row my-3 d-flex justify-content-center">
+        <img src={% static image.path %} style="width: 512px;" alt="">
+    </div>
+
+    <div class="row my-2">
+        {% for tag in image.pid.tags.all %}
+            <a href={% url "data_core:tag-detail" pk=tag.id %} class="btn btn-primary col-md-auto m-2">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+        <hr class="m-2">
+    </div>
+</div>
+{% endblock content %}

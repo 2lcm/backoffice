@@ -1,0 +1,40 @@
+{% load django_bootstrap5 %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back Office</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+
+<body>
+    <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+        <h2 class="navbar-brand col-md-3 col-lg-2 me-0 pt-3 px-3 fs-6 text-white ">Backoffice</h2>
+    </header>
+    {% bootstrap_messages %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sidebar border border-right col-md-2 col-lg-1 p-0">
+                {% include "data_core/_sidebar.html" %}
+            </div>
+
+            <main class="ms-sm-auto col-md-10 col-lg-11 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1> {{ title }} </h1>
+                </div>
+                <div>  
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

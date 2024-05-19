@@ -1,0 +1,30 @@
+{% extends "data_core/_layout.html" %}
+
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ product.name }}</h2>
+    <hr>
+    <div class="my-2">
+        <a href={% url "data_core:product-detail" pk=product.id %} class="btn btn-dark">DRF</a>
+    </div>
+
+    <div class="row row-cols-auto g-1 d-flex justify-content-center">
+    {% for image in product.productimage_set.all %} 
+        <a href={% url "data_core:image_detail" pk=image.id %}>
+            <img src={% static image.path %} style="width: 256px" alt="">
+        </a>    
+    {% endfor %}
+    </div>
+
+    <div class="row my-2">
+        {% for tag in product.tags.all %}
+            <a href={% url "data_core:tag-detail" pk=tag.id %} class="btn btn-primary col-md-auto m-2">
+                {{ tag.name }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

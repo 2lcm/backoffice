@@ -77,19 +77,5 @@ class ProductListView(ListView):
             kw = self.request.GET["keyword"]
             # context['keyword'] = kw
             context["ref_url"] += f"&keyword={kw}"
-        if "tag" in self.request.GET:
-            tag_list = self.request.GET.getlist("tag")
-
-            for tag in tag_list:
-                context["ref_url"] += f"&tag={tag}"
-
-            tag_qs = None
-            for tag in tag_list:
-                if tag_qs is None:
-                    tag_qs = Q(name=tag)
-                else:
-                    tag_qs = tag_qs | Q(name=tag)
-            qs = Tag.objects.filter(tag_qs)
-            context['tag_selected'] = qs
         
         return context
